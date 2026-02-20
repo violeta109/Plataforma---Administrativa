@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Administrativa Escolar</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header class="top-header">
+    <h1>Plataforma Administrativa Escolar</h1>
+
+    <div class="user-box">
+        <span>👤 Administrador</span>
+        <a href="index.html" class="logout">Cerrar sesión</a>
+    </div>
+</header>
+
+<aside class="sidebar">
+  <button>Usuario</button>
+  <button>Calendario</button>
+  <button>Ayuda</button>
+  <button>Configuración</button>
+</aside>
+
+<main class="contenido">
+
+    <!-- FILTRO POR PERIODO -->
+    <div class="filtro-periodo">
+        <label for="filtroPeriodo">Filtrar por periodo:</label>
+        <select id="filtroPeriodo">
+            <option value="2026">Periodo actual (2026)</option>
+            <option value="2025">Año 2025</option>
+            <option value="2024">Año 2024</option>
+            <option value="2023">Año 2023</option>
+        </select>
+    </div>
+
+
+    <section id="inicio" class="dashboard activo">
+
+        <div class="card" onclick="mostrarModulo('cursos')">
+            <img src="img/principal.png">
+            <h3>Cursos</h3>
+        </div>
+
+        <div class="card" onclick="mostrarModulo('profesores')">
+            <img src="img/principal.png">
+            <h3>Profesores</h3>
+        </div>
+
+        <div class="card" onclick="mostrarModulo('alumnos')">
+            <img src="img/principal.png">
+            <h3>Alumnos</h3>
+        </div>
+
+        <div class="card" onclick="mostrarModulo('notas')">
+            <img src="img/principal.png">
+            <h3>Notas</h3>
+
+        </div>
+
+    </section>
+
+    <section id="cursos" class="modulo">
+    <h2>Gestión de Cursos</h2>
+
+    <form>
+        <label>Código del curso</label>
+        <input type="text" placeholder="CUR-001">
+
+        <label>Nombre del curso</label>
+        <input type="text" placeholder="Matemática">
+
+        <label>Grado</label>
+        <input type="text" placeholder="3°">
+
+        <label for="nivel">Nivel</label>
+        <select id="nivel" name="nivel">
+        <option value="">Seleccione el nivel</option>
+        <option value="primaria">Primaria</option>
+        <option value="secundaria">Secundaria</option>
+        </select>
+
+        <button type="button">Guardar</button>
+        <button type="button">Cancelar</button>
+    </form>
+
+    <table class="tabla-notas">
+        <tr>
+            <th>Código</th>
+            <th>Curso</th>
+            <th>Grado</th>
+            <th>Nivel</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>CUR-001</td>
+            <td>Matemática</td>
+            <td>3°</td>
+            <td>Secundaria</td>
+            <td>
+                <button>Editar</button>
+                <button>Eliminar</button>
+            </td>
+        </tr>
+    </table>
+</section>
+
+   <section id="profesores" class="modulo">
+    <h2>Gestión de Profesores</h2>
+
+    <form>
+        <label>DNI</label>
+        <input type="text" placeholder="12345678">
+
+        <label>Nombre completo</label>
+        <input type="text" placeholder="Juan Pérez">
+
+        <label>Especialidad</label>
+        <input type="text" placeholder="Matemática">
+
+        <label for="curso_asignado">Curso asignado</label>
+        <select id="curso_asignado" name="curso_asignado">
+        <option value="">Seleccione un curso</option>
+        <option value="matematica">Matemática</option>
+        <option value="comunicacion">Comunicación</option>
+        </select>
+
+        <button type="button">Guardar</button>
+        <button type="button">Cancelar</button>
+    </form>
+
+    <table class="tabla-notas">
+        <tr>
+            <th>DNI</th>
+            <th>Profesor</th>
+            <th>Especialidad</th>
+            <th>Curso</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>12345678</td>
+            <td>Juan Pérez</td>
+            <td>Matemática</td>
+            <td>Matemática</td>
+            <td>
+                <button>Editar</button>
+                <button>Eliminar</button>
+            </td>
+        </tr>
+    </table>
+</section>
+
+     <section id="alumnos" class="modulo">
+    <h2>Gestión de Alumnos</h2>
+
+    <form>
+        <label>Código del alumno</label>
+        <input type="text" placeholder="ALU-001">
+
+        <label>Nombre completo</label>
+        <input type="text" placeholder="María López">
+
+        <label>Grado</label>
+        <input type="text" placeholder="3°">
+
+        <label>Sección</label>
+        <input type="text" placeholder="A">
+
+        <button type="button">Guardar</button>
+        <button type="button">Cancelar</button>
+    </form>
+
+    <table class="tabla-notas">
+        <tr>
+            <th>Código</th>
+            <th>Alumno</th>
+            <th>Grado</th>
+            <th>Sección</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>ALU-001</td>
+            <td>María López</td>
+            <td>3°</td>
+            <td>A</td>
+            <td>
+                <button>Editar</button>
+                <button>Eliminar</button>
+            </td>
+        </tr>
+    </table>
+</section>
+
+    <section id="notas" class="modulo">
+    <h2>Registro de Notas</h2>
+
+    <form>
+
+    <label for="alumno">Alumno</label>
+    <select id="alumno" name="alumno">
+        <option value="">Seleccione un alumno</option>
+        <option value="maria_lopez">María López</option>
+    </select>
+
+    <label for="curso">Curso</label>
+    <select id="curso" name="curso">
+        <option value="">Seleccione un curso</option>
+        <option value="matematica">Matemática</option>
+    </select>
+
+    <label for="bimestre">Bimestre</label>
+    <select id="bimestre" name="bimestre">
+        <option value="">Seleccione el bimestre</option>
+        <option value="1">I</option>
+        <option value="2">II</option>
+        <option value="3">III</option>
+        <option value="4">IV</option>
+    </select>
+
+        <label>Nota</label>
+        <input type="number" placeholder="18">
+
+        <button type="button">Guardar</button>
+        <button type="button">Cancelar</button>
+    </form>
+
+    <table class="tabla-notas">
+        <tr>
+            <th>Alumno</th>
+            <th>Curso</th>
+            <th>Bimestre</th>
+            <th>Nota</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>María López</td>
+            <td>Matemática</td>
+            <td>I</td>
+            <td>18</td>
+            <td>
+                <button>Editar</button>
+                <button>Eliminar</button>
+            </td>
+        </tr>
+    </table>
+</section>
+
+</main>
+
+<script>
+function mostrarModulo(id) {
+    
+    document.querySelectorAll('.modulo, .dashboard').forEach(seccion => {
+        seccion.classList.remove('activo');
+    });
+    
+    const modulo = document.getElementById(id);
+    if (modulo) {
+        modulo.classList.add('activo');
+    } else {
+        console.error("No existe el módulo con id:", id);
+    }
+}
+</script>
+</body>
+</html>
