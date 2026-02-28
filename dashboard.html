@@ -6,32 +6,37 @@
     <title>Plataforma Administrativa Escolar</title>
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 <body>
 
-<header class="top-header">
-    <h1>Plataforma Administrativa Escolar</h1>
 
+<header class="top-header">
+
+    <button class="hamburguesa" type="button" onclick="toggleMenu()" title="Menú">
+    <i class="fa-solid fa-bars"></i>
+    <span class="sr-only">Menú</span>
+    </button>
+    <h1>Plataforma Administrativa Escolar</h1>
     <div class="user-box">
         <span>👤 Administrador</span>
         <a href="index.html" class="logout">Cerrar sesión</a>
     </div>
 </header>
+<button class="btn-menu" onclick="toggleMenu()">☰</button>
 
-<aside class="sidebar">
-  <button>Usuario</button>
-  <button>Calendario</button>
-  <button>Ayuda</button>
-  <button>Configuración</button>
+<aside class="sidebar menu">
+  <button onclick="mostrarSeccion('inicio')">Usuario</button>
+  <button onclick="mostrarSeccion('calendario')">Calendario</button>
+  <button onclick="mostrarSeccion('ayuda')">Ayuda</button>
+  <button onclick="mostrarSeccion('configuracion')">Configuración</button>
 </aside>
 
 <main class="contenido">
 
-    <!-- FILTRO POR PERIODO -->
+    <!--periodo-->
     <div class="filtro-periodo">
         <label for="filtroPeriodo">Filtrar por periodo:</label>
-        <select id="filtroPeriodo">
+        <select id="filtroPeriodo" onchange="cambiarPeriodo()" >
             <option value="2026">Periodo actual (2026)</option>
             <option value="2025">Año 2025</option>
             <option value="2024">Año 2024</option>
@@ -71,10 +76,8 @@
     <form>
         <label>Código del curso</label>
         <input type="text" placeholder="CUR-001">
-
         <label>Nombre del curso</label>
         <input type="text" placeholder="Matemática">
-
         <label>Grado</label>
         <input type="text" placeholder="3°">
 
@@ -85,8 +88,8 @@
         <option value="secundaria">Secundaria</option>
         </select>
 
-        <button type="button">Guardar</button>
-        <button type="button">Cancelar</button>
+        <button type="button" onclick="guardarRegistro()">Guardar</button>
+        <button type="button" onclick="cancelarFormulario(this)">Cancelar</button>
     </form>
 
     <table class="tabla-notas">
@@ -103,8 +106,8 @@
             <td>3°</td>
             <td>Secundaria</td>
             <td>
-                <button>Editar</button>
-                <button>Eliminar</button>
+                 <button onclick="editarRegistro(this)">Editar</button>
+                 <button onclick="eliminarRegistro(this)">Eliminar</button>
             </td>
         </tr>
     </table>
@@ -130,8 +133,8 @@
         <option value="comunicacion">Comunicación</option>
         </select>
 
-        <button type="button">Guardar</button>
-        <button type="button">Cancelar</button>
+        <button type="button" onclick="guardarRegistro()">Guardar</button>
+        <button type="button" onclick="cancelarFormulario(this)">Cancelar</button>
     </form>
 
     <table class="tabla-notas">
@@ -148,8 +151,8 @@
             <td>Matemática</td>
             <td>Matemática</td>
             <td>
-                <button>Editar</button>
-                <button>Eliminar</button>
+                 <button onclick="editarRegistro(this)">Editar</button>
+                 <button onclick="eliminarRegistro(this)">Eliminar</button>
             </td>
         </tr>
     </table>
@@ -171,8 +174,8 @@
         <label>Sección</label>
         <input type="text" placeholder="A">
 
-        <button type="button">Guardar</button>
-        <button type="button">Cancelar</button>
+        <button type="button" onclick="guardarRegistro()">Guardar</button>
+        <button type="button" onclick="cancelarFormulario(this)">Cancelar</button>
     </form>
 
     <table class="tabla-notas">
@@ -189,8 +192,8 @@
             <td>3°</td>
             <td>A</td>
             <td>
-                <button>Editar</button>
-                <button>Eliminar</button>
+                <button onclick="editarRegistro(this)">Editar</button>
+                <button onclick="eliminarRegistro(this)">Eliminar</button>
             </td>
         </tr>
     </table>
@@ -225,8 +228,8 @@
         <label>Nota</label>
         <input type="number" placeholder="18">
 
-        <button type="button">Guardar</button>
-        <button type="button">Cancelar</button>
+        <button type="button" onclick="guardarRegistro()">Guardar</button>
+        <button type="button" onclick="cancelarFormulario(this)">Cancelar</button>
     </form>
 
     <table class="tabla-notas">
@@ -243,29 +246,197 @@
             <td>I</td>
             <td>18</td>
             <td>
-                <button>Editar</button>
-                <button>Eliminar</button>
+                <button onclick="editarRegistro(this)">Editar</button>
+                <button onclick="eliminarRegistro(this)">Eliminar</button>
             </td>
         </tr>
     </table>
 </section>
 
+<!--calendario -->
+<section id="calendario" class="modulo">
+    <h2>Calendario</h2>
+
+    <div class="card" onclick="mostrarVistaCalendario()">
+        <h3>📅 Ver calendario</h3>
+    </div>
+
+    <div class="card" onclick="mostrarVistaCrearEvento()">
+        <h3>➕ Crear evento</h3>
+    </div>
+
+</section>
+
+<section id="vistaCalendario" class="modulo">
+
+    <button onclick="cambiarVista('calendario')">⬅ Volver</button>
+
+    <div class="calendario-header">
+        <button onclick="cambiarMes(-1)">⬅</button>
+        <h2 id="tituloMes"></h2>
+        <button onclick="cambiarMes(1)">➡</button>
+    </div>
+
+    <h3 id="trimestreActual"></h3>
+    <div id="calendarioGrid" class="calendario-grid"></div>
+
+</section>
+
+<section id="vistaCrearEvento" class="modulo">
+    <h2>Crear Evento</h2>
+    <form onsubmit="guardarEvento(event)">
+
+    <label for="cursoEvento">Curso</label>
+    <input type="text" id="cursoEvento" required>
+    <label for="actividad">Actividad</label>
+    <input type="text" id="actividad" required>
+    <label for="fecha">Fecha</label>
+    <input type="date" id="fecha" required>
+
+     <button type="submit">Guardar</button>
+
+    </form>
+
+</section>
+
+<!--boton ayuda-->
+<section id="ayuda" class="modulo">
+    <h2>Centro de Ayuda</h2>
+
+    <div class="card" onclick="cambiarVista('vistaManual')">
+        <h3>📄 Manual de usuario</h3>
+    </div>
+
+    <div class="card" onclick="cambiarVista('vistaSoporte')">
+        <h3>💬 Soporte técnico</h3>
+    </div>
+
+    <div class="card" onclick="cambiarVista('vistaContacto')">
+        <h3>📩 Contactar</h3>
+    </div>
+</section>
+
+<!--manual usuario-->
+<section id="vistaManual" class="modulo">
+    <button onclick="cambiarVista('ayuda')">⬅ Volver</button>
+
+    <h2>Manual de Usuario</h2>
+
+    <ol class="manual">
+        <li>Ingrese al sistema con su usuario y contraseña.</li>
+        <li>Use el menú lateral para navegar entre los módulos.</li>
+        <li>En cada módulo puede registrar, editar o eliminar información.</li>
+        <li>En la opción calendario podrá visualizar y crear eventos.</li>
+        <li>No olvide cerrar sesión al finalizar.</li>
+    </ol>
+</section>
+
+<!--soporte -->
+<section id="vistaSoporte" class="modulo">
+    <button onclick="cambiarVista('ayuda')">⬅ Volver</button>
+
+    <h2>Soporte Técnico</h2>
+
+    <div class="faq">
+        <h4>❓ No puedo ingresar al sistema</h4>
+        <p>Verifique su usuario y contraseña.</p>
+        <h4>❓ No se guardan los registros</h4>
+        <p>Revise que todos los campos estén completos.</p>
+        <h4>❓ No se visualiza el calendario</h4>
+        <p>Actualice la página o vuelva a ingresar al módulo.</p>
+    </div>
+</section>
+
+<!--contacto-->
+<section id="vistaContacto" class="modulo">
+    <button onclick="cambiarVista('ayuda')">⬅ Volver</button>
+
+    <h2>Contacto</h2>
+
+    <p><strong>📞 Teléfono:</strong> 975786170</p>
+    <p><strong>✉ Email:</strong> soporte@plataforma.edu.pe</p>
+    <p>Horario de atención: Lunes a Viernes 8:00 am – 5:00 pm</p>
+</section>
+
+<!--configuracion-->
+<section id="configuracion" class="modulo">
+    <h2>Configuración</h2>
+
+    <div class="config-grid">
+
+        <!--perfil-->
+        <div class="card perfil-card">
+            <h3>👤 Perfil</h3>
+
+            <div class="perfil-info">
+                <img id="fotoPerfil" src="img/user.png">
+
+                <div>
+                    <p><strong id="nombreUsuario"></strong></p>
+                    <p id="rolUsuario"></p>
+                </div>
+            </div>
+
+            <div class="perfil-datos">
+                <p><b>ID:</b> <span id="idUsuario"></span></p>
+                <p><b>Curso:</b> <span id="cursoUsuario"></span></p>
+                <p><b>Correo:</b> <span id="correoUsuario"></span></p>
+                <p><b>Teléfono:</b> <span id="telefonoUsuario"></span></p>
+            </div>
+
+            <label for="subirFoto">Subir foto</label>
+            <input type="file" id="subirFoto">
+        </div>
+
+        <!--seguridad-->
+        <div class="card">
+            <h3>🔒 Seguridad</h3>
+
+            <input type="password" id="actualPass" placeholder="Contraseña actual">
+            <input type="password" id="nuevaPass" placeholder="Nueva contraseña">
+
+            <label>
+                <input type="checkbox" onclick="mostrarPassword()"> Mostrar contraseñas
+            </label>
+
+            <button onclick="cambiarPassword()">Actualizar contraseña</button>
+        </div>
+
+        <!--preferencias-->
+        <div class="card">
+            <h3>⚙ Preferencias</h3>
+
+            <label for="modoOscuro">🌙 Modo oscuro</label>
+            <input type="checkbox" id="modoOscuro">
+
+            <label for="notificaciones">🔔 Notificaciones</label>
+            <input type="checkbox" id="notificaciones" checked>
+
+            <label for="idioma">🌎 Idioma</label>
+            <select id="idioma">
+                <option>Español</option>
+                <option>English</option>
+            </select>
+
+            <button onclick="guardarPreferencias()">Guardar</button>
+        </div>
+
+    </div>
+</section>
 </main>
 
-<script>
-function mostrarModulo(id) {
-    
-    document.querySelectorAll('.modulo, .dashboard').forEach(seccion => {
-        seccion.classList.remove('activo');
-    });
-    
-    const modulo = document.getElementById(id);
-    if (modulo) {
-        modulo.classList.add('activo');
-    } else {
-        console.error("No existe el módulo con id:", id);
-    }
-}
-</script>
+
+<div id="modalConfirmacion" class="modal">
+
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModalConfirmacion()">✖</span>
+    <p>¿Deseas eliminar este registro?</p>
+    <button onclick="confirmarEliminacion()">SI</button>
+    <button onclick="cerrarModalConfirmacion()">NO</button>
+
+  </div>
+
+</div>
+<script src="js/app.js"></script>
 </body>
 </html>
